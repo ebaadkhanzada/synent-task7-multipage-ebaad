@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Synent Technologies - Multi-Page Enterprise Portal</title>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --primary: #2563eb;
+      --primary-dark: #1d4ed8;
+      --secondary: #0f172a;
+      --bg: #f8fafc;
+      --card-bg: #ffffff;
+      --text: #1e293b;
+      --text-muted: #64748b;
+      --border: #e2e8f0;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Plus Jakarta Sans', sans-serif; }
+    body { background-color: var(--bg); color: var(--text); line-height: 1.6; display: flex; flex-direction: column; min-height: 100vh; }
+    
+    /* Navigation */
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.2rem 8%;
+      background: #ffffff;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      border-bottom: 1px solid var(--border);
+    }
+    .logo { font-size: 1.5rem; font-weight: 800; color: var(--primary); text-decoration: none; display: flex; align-items: center; gap: 8px; }
+    .logo span { color: var(--secondary); }
+    .nav-links { display: flex; gap: 2.2rem; list-style: none; }
+    .nav-links a {
+      text-decoration: none;
+      color: var(--text-muted);
+      font-weight: 600;
+      font-size: 0.95rem;
+      cursor: pointer;
+      transition: color 0.2s;
+    }
+    .nav-links a.active, .nav-links a:hover { color: var(--primary); }
+    .hamburger { display: none; cursor: pointer; font-size: 1.5rem; color: var(--secondary); }
+
+    /* Page View Sections */
+    .page-section { display: none; flex: 1; animation: fadeIn 0.3s ease-in-out; }
+    .page-section.active { display: block; }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Hero */
+    .hero {
+      padding: 6rem 8%;
+      text-align: center;
+      background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
+      border-bottom: 1px solid var(--border);
+    }
+    .hero h1 { font-size: 3rem; font-weight: 800; color: var(--secondary); margin-bottom: 1.2rem; line-height: 1.2; }
+    .hero p { font-size: 1.15rem; color: var(--text-muted); max-width: 650px; margin: 0 auto 2rem; }
+    
+    /* Container & Layout */
+    .container { padding: 4rem 8%; max-width: 1200px; margin: 0 auto; }
+    .section-title { font-size: 2rem; font-weight: 700; text-align: center; margin-bottom: 2.5rem; color: var(--secondary); }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem; }
+    .card {
+      background: var(--card-bg);
+      padding: 2.2rem;
+      border-radius: 12px;
+      box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
+      border: 1px solid var(--border);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .card:hover { transform: translateY(-4px); box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1); }
+    .card h3 { font-size: 1.3rem; margin-bottom: 0.8rem; color: var(--secondary); }
+    .card p { color: var(--text-muted); font-size: 0.95rem; }
+
+    /* Forms */
+    .contact-form {
+      display: flex;
+      flex-direction: column;
+      gap: 1.2rem;
+      max-width: 600px;
+      margin: 0 auto;
+      background: white;
+      padding: 2.5rem;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
+    }
+    .form-group { display: flex; flex-direction: column; gap: 6px; }
+    .form-group label { font-size: 0.9rem; font-weight: 600; color: var(--secondary); }
+    .contact-form input, .contact-form textarea {
+      padding: 12px 16px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      outline: none;
+      font-size: 0.95rem;
+    }
+    .contact-form input:focus, .contact-form textarea:focus { border-color: var(--primary); }
+
+    .btn {
+      background: var(--primary);
+      color: white;
+      border: none;
+      padding: 12px 28px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 1rem;
+      text-decoration: none;
+      display: inline-block;
+      transition: background 0.2s;
+    }
+    .btn:hover { background: var(--primary-dark); }
+
+    /* Footer */
+    footer {
+      background: var(--secondary);
+      color: white;
+      text-align: center;
+      padding: 2.5rem 8%;
+      margin-top: auto;
+    }
+    footer p { color: #94a3b8; font-size: 0.9rem; }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .hamburger { display: block; }
+      .nav-links {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        background: white;
+        flex-direction: column;
+        padding: 1.5rem;
+        gap: 1.2rem;
+        box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1);
+        border-bottom: 1px solid var(--border);
+      }
+      .nav-links.show { display: flex; }
+      .hero h1 { font-size: 2.2rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav>
+    <a class="logo" onclick="navigateTo('home')">Synent <span>Tech</span></a>
+    <div class="hamburger" id="hamburger">&#9776;</div>
+    <ul class="nav-links" id="nav-links">
+      <li><a class="nav-btn active" data-page="home">Home</a></li>
+      <li><a class="nav-btn" data-page="about">About Us</a></li>
+      <li><a class="nav-btn" data-page="services">Services</a></li>
+      <li><a class="nav-btn" data-page="contact">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- HOME PAGE -->
+  <section id="home" class="page-section active">
+    <div class="hero">
+      <h1>Scalable Web Engineering & Enterprise Digital Solutions</h1>
+      <p>Building high-performance modern web applications tailored for market leaders and rapidly growing tech startups.</p>
+      <button class="btn" onclick="navigateTo('services')">Explore Our Services</button>
+    </div>
+    <div class="container">
+      <h2 class="section-title">Core Capability Highlights</h2>
+      <div class="grid">
+        <div class="card">
+          <h3>⚡ Ultra Fast Performance</h3>
+          <p>Engineered with optimized assets and modern JavaScript engines to ensure lightning-fast page loading speed.</p>
+        </div>
+        <div class="card">
+          <h3>📱 Fully Responsive Layout</h3>
+          <p>Seamless adaptability across desktop, tablet, and mobile displays with modern CSS Grid and Flexbox layout systems.</p>
+        </div>
+        <div class="card">
+          <h3>🔒 Modern Architecture</h3>
+          <p>Clean, modular, and maintainable codebase adhering to industry standard security guidelines.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT PAGE -->
+  <section id="about" class="page-section">
+    <div class="container">
+      <h2 class="section-title">About Synent Technologies</h2>
+      <p style="text-align: center; max-width: 800px; margin: 0 auto 3rem; color: var(--text-muted); font-size: 1.05rem;">
+        Synent Technologies is a premier software innovation engineering firm delivering top-tier web applications, cloud solutions, and digital transformational tools.
+      </p>
+      <div class="grid">
+        <div class="card">
+          <h3>Our Mission</h3>
+          <p>To empower global organizations by crafting resilient, user-centered web technologies and digital platforms.</p>
+        </div>
+        <div class="card">
+          <h3>Our Vision</h3>
+          <p>To lead web development innovation through clean code practices, modern frameworks, and transparent collaboration.</p>
+        </div>
+        <div class="card">
+          <h3>Our Values</h3>
+          <p>Integrity, performance excellence, rapid deployment, and perpetual technological skill upgrading.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICES PAGE -->
+  <section id="services" class="page-section">
+    <div class="container">
+      <h2 class="section-title">Services We Provide</h2>
+      <div class="grid">
+        <div class="card">
+          <h3>💻 Full-Stack Web Development</h3>
+          <p>Custom web app creation using modern frontend frameworks like React and Node.js backend integration.</p>
+        </div>
+        <div class="card">
+          <h3>🎨 UI/UX Interface Design</h3>
+          <p>Crafting intuitive, accessible, and user-centered design systems with interactive prototyping.</p>
+        </div>
+        <div class="card">
+          <h3>🔌 API Architecture & Integration</h3>
+          <p>Designing secure RESTful and GraphQL APIs to seamlessly connect third-party platforms and payment systems.</p>
+        </div>
+        <div class="card">
+          <h3>🚀 Cloud & DevOps Optimization</h3>
+          <p>Automated continuous deployment pipelines, serverless deployment, and database scaling.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT PAGE -->
+  <section id="contact" class="page-section">
+    <div class="container">
+      <h2 class="section-title">Get In Touch</h2>
+      <form class="contact-form" id="contact-form" onsubmit="handleContactSubmit(event)">
+        <div class="form-group">
+          <label for="name">Full Name</label>
+          <input type="text" id="name" placeholder="John Doe" required />
+        </div>
+        <div class="form-group">
+          <label for="email">Email Address</label>
+          <input type="email" id="email" placeholder="john@example.com" required />
+        </div>
+        <div class="form-group">
+          <label for="subject">Subject</label>
+          <input type="text" id="subject" placeholder="Project Inquiry" required />
+        </div>
+        <div class="form-group">
+          <label for="message">Your Message</label>
+          <textarea id="message" rows="5" placeholder="Tell us about your project requirements..." required></textarea>
+        </div>
+        <button type="submit" class="btn">Send Message</button>
+      </form>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <p>&copy; 2026 Synent Technologies. Internship Task 7 Submission. All Rights Reserved.</p>
+  </footer>
+
+  <script>
+    const navBtns = document.querySelectorAll('.nav-btn');
+    const sections = document.querySelectorAll('.page-section');
+    const hamburger = document.getElementById('hamburger');
+    const navLinks = document.getElementById('nav-links');
+
+    function navigateTo(pageId) {
+      sections.forEach(sec => sec.classList.remove('active'));
+      navBtns.forEach(btn => btn.classList.remove('active'));
+
+      const targetSection = document.getElementById(pageId);
+      if (targetSection) targetSection.classList.add('active');
+
+      const activeBtn = document.querySelector(`.nav-btn[data-page="${pageId}"]`);
+      if (activeBtn) activeBtn.classList.add('active');
+
+      navLinks.classList.remove('show');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    navBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        navigateTo(btn.dataset.page);
+      });
+    });
+
+    hamburger.addEventListener('click', () => {
+      navLinks.classList.toggle('show');
+    });
+
+    function handleContactSubmit(e) {
+      e.preventDefault();
+      alert('Thank you for reaching out! Your message has been recorded successfully.');
+      document.getElementById('contact-form').reset();
+    }
+  </script>
+</body>
+</html>
